@@ -14,12 +14,47 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { Header } from "../_components/Header";
+import { Header } from "./_components/Header";
+import { toast } from "sonner";
+import { apiClient } from "@/lib/api-client";
+import { SIGNUP_ROUTE } from "@/utils/constants";
 
 export default function AuthPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleRepeatPasswordVisibility = () =>
+    setShowRepeatPassword(!showRepeatPassword);
+
+  const validateSignup = () => {
+    if (!email.length) {
+      toast.error("Email is required!");
+      return false;
+    } else if (!password.length) {
+      toast.error("Password is required!");
+      return false;
+    } else if (confirmPassword !== password) {
+      toast.error("Password and Confirm password should match!");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSignup = async () => {
+    if (validateSignup()) {
+      const res = await apiClient.post(SIGNUP_ROUTE, { email, password });
+
+      console.log(res);
+    }
+  };
+
+  const handleLogin = async () => {};
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -53,6 +88,8 @@ export default function AuthPage() {
                         id="signin-email"
                         type="email"
                         placeholder="you@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -63,6 +100,8 @@ export default function AuthPage() {
                           id="signin-password"
                           type={showPassword ? "text" : "password"}
                           placeholder="••••••••"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                         <button
@@ -80,7 +119,11 @@ export default function AuthPage() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button type="submit" className="w-full">
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      onClick={handleLogin}
+                    >
                       Sign In
                     </Button>
                   </CardFooter>
@@ -96,20 +139,13 @@ export default function AuthPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="signup-name">Full Name</Label>
-                      <Input
-                        id="signup-name"
-                        type="text"
-                        placeholder="John Doe"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
                       <Label htmlFor="signup-email">Email</Label>
                       <Input
                         id="signup-email"
                         type="email"
                         placeholder="you@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -120,6 +156,8 @@ export default function AuthPage() {
                           id="signup-password"
                           type={showPassword ? "text" : "password"}
                           placeholder="••••••••"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           required
                         />
                         <button
@@ -135,9 +173,37 @@ export default function AuthPage() {
                         </button>
                       </div>
                     </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="repeat-password">Repeat Password</Label>
+                      <div className="relative">
+                        <Input
+                          id="repeat-password"
+                          type={showRepeatPassword ? "text" : "password"}
+                          placeholder="••••••••"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={toggleRepeatPasswordVisibility}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        >
+                          {showRepeatPassword ? (
+                            <EyeOffIcon className="h-5 w-5" />
+                          ) : (
+                            <EyeIcon className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
                   </CardContent>
                   <CardFooter>
-                    <Button type="submit" className="w-full">
+                    <Button
+                      type="submit"
+                      className="w-full"
+                      onClick={handleSignup}
+                    >
                       Sign Up
                     </Button>
                   </CardFooter>
