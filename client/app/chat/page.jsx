@@ -1,7 +1,12 @@
-import React from "react";
+"use client";
+
+import { useAuth } from "@/context/AuthContext";
+import React, { useEffect } from "react";
 
 const ChatPage = () => {
-  return <div></div>;
+  const { userInfo } = useAuth();
+
+  return <div>Chat</div>;
 };
 
 export default ChatPage;
