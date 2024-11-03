@@ -5,7 +5,7 @@ export const verifyToken = (request, response, next) => {
   //   console.log({ token });
 
   if (!token) {
-    return response.send(401).send("You are not authenticated!");
+    return response.status(401).send("You are not authenticated!");
   }
 
   jwt.verify(token, process.env.JWT_KEY, async (err, payload) => {

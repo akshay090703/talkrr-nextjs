@@ -64,41 +64,51 @@ export default function AuthPage() {
 
   const handleSignup = async () => {
     if (validateSignup()) {
-      const res = await apiClient.post(
-        SIGNUP_ROUTE,
-        { email, password },
-        { withCredentials: true }
-      );
+      try {
+        const res = await apiClient.post(
+          SIGNUP_ROUTE,
+          { email, password },
+          { withCredentials: true }
+        );
 
-      console.log({ res });
+        console.log({ res });
 
-      if (res.status === 201) {
-        setUserInfo(res.data.user);
-        toast.success("User successfully created!");
-        router.replace("/profile");
+        if (res.status === 201) {
+          setUserInfo(res.data.user);
+          toast.success("User successfully created!");
+          router.replace("/profile");
+        }
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error);
       }
     }
   };
 
   const handleLogin = async () => {
     if (validateLogin()) {
-      const res = await apiClient.post(
-        LOGIN_ROUTE,
-        { email, password },
-        { withCredentials: true }
-      );
+      try {
+        const res = await apiClient.post(
+          LOGIN_ROUTE,
+          { email, password },
+          { withCredentials: true }
+        );
 
-      console.log({ res });
+        console.log({ res });
 
-      if (res.data.user.id) {
-        setUserInfo(res.data.user);
-        toast.success("User logged in!");
+        if (res.data.user.id) {
+          setUserInfo(res.data.user);
+          toast.success("User logged in!");
 
-        if (res.data.user.profileSetup) {
-          router.replace("/chat");
-        } else {
-          router.replace("/profile");
+          if (res.data.user.profileSetup) {
+            router.replace("/chat");
+          } else {
+            router.replace("/profile");
+          }
         }
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error);
       }
     }
   };

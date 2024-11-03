@@ -1,17 +1,10 @@
-import Link from "next/link";
-import React from "react";
-import { RiKakaoTalkFill } from "react-icons/ri";
-
 const Logo = () => {
   return (
-    <Link
-      href="/"
-      className="text-2xl font-bold text-foreground  transition-all hover:scale-105 flex gap-1 justify-center items-center"
-    >
+    <div className="flex p-5 justify-start items-center gap-2">
       <svg
         id="logo-38"
-        width="50"
-        height="25"
+        width="78"
+        height="32"
         viewBox="0 0 78 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -33,8 +26,8 @@ const Logo = () => {
           fill="#a16ee8"
         ></path>{" "}
       </svg>
-      Talkrr
-    </Link>
+      <span className="text-3xl font-semibold ">Talkrr</span>
+    </div>
   );
 };
 

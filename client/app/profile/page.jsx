@@ -218,15 +218,33 @@ const ProfilePage = () => {
             </div>
 
             <div className="w-full flex gap-5">
-              {colors.map((color, index) => (
-                <div
-                  className={`${color} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${
-                    selectedColor === index && "outline outline-white outline-1"
-                  }`}
-                  key={index}
-                  onClick={() => setSelectedColor(index)}
-                ></div>
-              ))}
+              <div
+                className={`${"bg-[#712c4a57] text-[#ff006e] border border-[#ff006faa]"} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                  selectedColor === 0 && "outline outline-white outline-1"
+                }`}
+                onClick={() => setSelectedColor(0)}
+              ></div>
+
+              <div
+                className={`${"bg-[#ffd60a2a] text-[#ffd60a] border border-[#ffd60abb]"} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                  selectedColor === 1 && "outline outline-white outline-1"
+                }`}
+                onClick={() => setSelectedColor(1)}
+              ></div>
+
+              <div
+                className={`${"bg-[#06d6a02a] text-[#06d6a0] border border-[#06d6a0bb]"} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                  selectedColor === 2 && "outline outline-white outline-1"
+                }`}
+                onClick={() => setSelectedColor(2)}
+              ></div>
+
+              <div
+                className={`${"bg-[#4cc9f02a] text-[#4cc9f0] border border-[#4cc9f0bb]"} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${
+                  selectedColor === 3 && "outline outline-white outline-1"
+                }`}
+                onClick={() => setSelectedColor(3)}
+              ></div>
             </div>
           </div>
         </div>

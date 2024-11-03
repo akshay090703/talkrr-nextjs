@@ -2,7 +2,7 @@
 
 import { AuthContext } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
-import { apiClient } from "./api-client";
+import { apiClient } from "@/lib/api-client";
 import { GET_USER_INFO } from "@/utils/constants";
 import { toast } from "sonner";
 
@@ -35,7 +35,10 @@ export default function AuthProvider({ children }) {
       }
     };
 
-    if (!userInfo) {
+    const cookies = document.cookie.split("; ");
+    const jwtCookie = cookies.find((cookie) => cookie.startsWith("jwt="));
+
+    if (!userInfo && jwtCookie) {
       getUserData();
     } else {
       setLoading(false);

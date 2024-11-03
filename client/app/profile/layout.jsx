@@ -10,7 +10,10 @@ const ProfileLayout = ({ children }) => {
   const { userInfo } = useAuth();
 
   useEffect(() => {
-    if (!userInfo) {
+    const cookies = document.cookie.split("; ");
+    const jwtCookie = cookies.find((cookie) => cookie.startsWith("jwt="));
+
+    if (!jwtCookie && !userInfo) {
       toast.error("Please login to use the app!");
       router.push("/auth");
     }
