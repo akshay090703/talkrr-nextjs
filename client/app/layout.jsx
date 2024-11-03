@@ -4,6 +4,7 @@ import { Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "@/context/AuthProvider";
+import ChatProvider from "@/context/ChatProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,7 +38,9 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <ChatProvider>{children}</ChatProvider>
+          </AuthProvider>
 
           <Toaster closeButton position="top-right" />
         </ThemeProvider>

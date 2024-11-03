@@ -12,7 +12,7 @@ const EmptyChatContainer = () => {
         options={animationDefaultOptions}
       />
 
-      <div className="text-opacity-80 text-white flex flex-col gap-5 items-center mt-10 lg:text-4xl transition-all duration-300 text-center">
+      <div className="text-opacity-80 text-white flex flex-col gap-5 items-center mt-10 lg:text-4xl text-3xl transition-all duration-300 text-center">
         <h3 className="poppins-medium">
           Hi<span className="text-primary">!</span> Welcome to
           <span className="text-primary"> Talkrr </span>Chat App

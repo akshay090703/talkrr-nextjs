@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/UserModel.js";
-import { compare } from "bcrypt";
+import bcrypt from "bcryptjs";
 
 import { renameSync, unlinkSync } from "fs";
 
@@ -55,7 +55,7 @@ export const login = async (request, response, next) => {
       return response.status(404).send("User with the given email not found");
     }
 
-    const auth = await compare(password, user.password);
+    const auth = await bcrypt.compare(password, user.password);
 
     if (!auth) {
       return response.status(400).send("Password is incorrect.");

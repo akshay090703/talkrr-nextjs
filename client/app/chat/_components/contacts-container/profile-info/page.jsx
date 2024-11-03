@@ -4,7 +4,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import { getColor } from "@/utils/colors";
 import { HOST, LOGOUT_ROUTE } from "@/utils/constants";
-import React from "react";
+import React, { useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -16,10 +16,23 @@ import { useRouter } from "next/navigation";
 import { IoPowerSharp } from "react-icons/io5";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api-client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 const ProfileInfo = () => {
   const { userInfo, setUserInfo } = useAuth();
   const router = useRouter();
+  const [openLogoutDialog, setOpenLogoutDialog] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -37,6 +50,8 @@ const ProfileInfo = () => {
     } catch (error) {
       console.log(error?.message);
       toast.error(error?.message);
+    } finally {
+      setOpenLogoutDialog(false);
     }
   };
 
@@ -94,7 +109,7 @@ const ProfileInfo = () => {
             <TooltipTrigger>
               <IoPowerSharp
                 className="text-red-500 text-lg font-medium"
-                onClick={() => handleLogout()}
+                onClick={() => setOpenLogoutDialog(true)}
               />
             </TooltipTrigger>
             <TooltipContent className="bg-[#1c1b1e] border-none text-white">
@@ -102,6 +117,27 @@ const ProfileInfo = () => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+
+        <AlertDialog open={openLogoutDialog}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <VisuallyHidden.Root>
+                <AlertDialogTitle>Logout Alert Dialog.</AlertDialogTitle>
+              </VisuallyHidden.Root>
+              <AlertDialogDescription>
+                Are you sure that you want to logout?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setOpenLogoutDialog(false)}>
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={handleLogout}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </div>
   );
