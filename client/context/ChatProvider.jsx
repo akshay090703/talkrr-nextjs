@@ -14,6 +14,21 @@ const ChatProvider = ({ children }) => {
     setSelectedChatMessages([]);
   };
 
+  const addMessage = (message) => {
+    setSelectedChatMessages([
+      ...selectedChatMessages,
+      {
+        ...message,
+        recipient:
+          selectedChatType === "channel"
+            ? message.recipient
+            : message.recipient._id,
+        sender:
+          selectedChatType === "channel" ? message.sender : message.sender._id,
+      },
+    ]);
+  };
+
   return (
     <ChatContext.Provider
       value={{
@@ -23,6 +38,7 @@ const ChatProvider = ({ children }) => {
         setSelectedChatType,
         setSelectedChatData,
         setSelectedChatMessages,
+        addMessage,
         closeChat,
       }}
     >

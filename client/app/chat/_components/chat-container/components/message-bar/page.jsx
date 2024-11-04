@@ -1,5 +1,8 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
+import { useChat } from "@/context/ChatContext";
+import { useSocket } from "@/context/SocketContext";
 import EmojiPicker from "emoji-picker-react";
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
@@ -11,7 +14,13 @@ const MessageBar = () => {
   const emojiRef = useRef();
   const [message, setMessage] = useState("");
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+
   const { theme } = useTheme();
+  const { userInfo } = useAuth();
+  const { selectedChatType, selectedChatData } = useChat();
+  const socket = useSocket();
+
+  // console.log(socket);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -31,7 +40,19 @@ const MessageBar = () => {
     setMessage((msg) => msg + emoji?.emoji);
   };
 
-  const handleSendMessage = async () => {};
+  const handleSendMessage = async () => {
+    if (selectedChatType === "contact") {
+      socket.emit("sendMessage", {
+        sender: userInfo.id,
+        content: message,
+        recipient: selectedChatData._id,
+        messageType: "text",
+        fileUrl: undefined,
+      });
+    }
+
+    setMessage("");
+  };
 
   return (
     <div className="h-[10vh] b-[#1c1d25] flex justify-center items-center px-8 mb-6 gap-6 ">

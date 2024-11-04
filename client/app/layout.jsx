@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "@/context/AuthProvider";
 import ChatProvider from "@/context/ChatProvider";
+import { SocketProvider } from "@/context/SocketContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,7 +40,9 @@ export default function RootLayout({ children }) {
           disableTransitionOnChange
         >
           <AuthProvider>
-            <ChatProvider>{children}</ChatProvider>
+            <ChatProvider>
+              <SocketProvider>{children}</SocketProvider>
+            </ChatProvider>
           </AuthProvider>
 
           <Toaster closeButton position="top-right" />
