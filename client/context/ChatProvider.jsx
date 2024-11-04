@@ -7,6 +7,7 @@ const ChatProvider = ({ children }) => {
   const [selectedChatType, setSelectedChatType] = useState(undefined);
   const [selectedChatData, setSelectedChatData] = useState(undefined);
   const [selectedChatMessages, setSelectedChatMessages] = useState([]);
+  const [directMessagesContacts, setDirectMessagesContacts] = useState([]);
 
   const closeChat = () => {
     setSelectedChatType(undefined);
@@ -35,9 +36,11 @@ const ChatProvider = ({ children }) => {
         selectedChatType,
         selectedChatData,
         selectedChatMessages,
+        directMessagesContacts,
         setSelectedChatType,
         setSelectedChatData,
         setSelectedChatMessages,
+        setDirectMessagesContacts,
         addMessage,
         closeChat,
       }}

@@ -23,6 +23,7 @@ app.use(
 );
 
 app.use("/upload/profiles", express.static("upload/profiles"));
+app.use("/upload/files", express.static("upload/files"));
 
 app.use(cookieParser());
 app.use(express.json());

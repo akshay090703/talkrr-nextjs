@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import AuthProvider from "@/context/AuthProvider";
 import ChatProvider from "@/context/ChatProvider";
 import { SocketProvider } from "@/context/SocketContext";
+import { LoadingProvider } from "@/context/LoadingProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,7 +42,9 @@ export default function RootLayout({ children }) {
         >
           <AuthProvider>
             <ChatProvider>
-              <SocketProvider>{children}</SocketProvider>
+              <SocketProvider>
+                <LoadingProvider>{children}</LoadingProvider>
+              </SocketProvider>
             </ChatProvider>
           </AuthProvider>
 
