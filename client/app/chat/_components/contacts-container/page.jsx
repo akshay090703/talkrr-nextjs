@@ -15,6 +15,7 @@ import ContactList from "@/components/contact-list";
 import CreateChannel from "./create-channel/page";
 import { useChannel } from "@/context/ChannelContext";
 import { toast } from "sonner";
+import { ModeToggle } from "@/components/ToggleTheme";
 
 const ContactsContainer = () => {
   const { directMessagesContacts, setDirectMessagesContacts } = useChat();
@@ -61,6 +62,10 @@ const ContactsContainer = () => {
   return (
     <div className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw] bg-[#1b1c24] border-r-2 border-[#2f303b] w-full">
       {" "}
+      {/* <div className="pt-3 pr-3 flex gap-1 justify-between items-center">
+        <Logo />
+        <ModeToggle />
+      </div> */}
       <div className="pt-3">
         <Logo />
       </div>
