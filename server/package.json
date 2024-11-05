@@ -25,6 +25,8 @@
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   }
 }
