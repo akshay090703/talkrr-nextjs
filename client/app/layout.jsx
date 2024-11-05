@@ -7,6 +7,7 @@ import AuthProvider from "@/context/AuthProvider";
 import ChatProvider from "@/context/ChatProvider";
 import { SocketProvider } from "@/context/SocketContext";
 import { LoadingProvider } from "@/context/LoadingProvider";
+import { ChannelProvider } from "@/context/ChannelContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -43,7 +44,9 @@ export default function RootLayout({ children }) {
           <AuthProvider>
             <ChatProvider>
               <SocketProvider>
-                <LoadingProvider>{children}</LoadingProvider>
+                <LoadingProvider>
+                  <ChannelProvider>{children}</ChannelProvider>
+                </LoadingProvider>
               </SocketProvider>
             </ChatProvider>
           </AuthProvider>
