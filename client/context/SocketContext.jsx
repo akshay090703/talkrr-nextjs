@@ -5,6 +5,7 @@ import { useAuth } from "./AuthContext";
 import { io } from "socket.io-client";
 import { HOST } from "@/utils/constants";
 import { useChat } from "./ChatContext";
+import { useChannel } from "./ChannelContext";
 
 export const SocketContext = createContext();
 
@@ -13,7 +14,13 @@ export const useSocket = () => useContext(SocketContext);
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const { userInfo } = useAuth();
-  const { selectedChatType, selectedChatData, addMessage } = useChat();
+  const {
+    selectedChatType,
+    selectedChatData,
+    addMessage,
+    addContactsInDMContacts,
+  } = useChat();
+  const { addChannelInChannelList } = useChannel();
 
   // Create refs to store the latest values
   const selectedChatTypeRef = useRef(selectedChatType);
@@ -49,9 +56,27 @@ export const SocketProvider = ({ children }) => {
           console.log("Message received:", message);
           addMessage(message);
         }
+
+        addContactsInDMContacts(message);
+      };
+
+      const handleReceiveChannelMessage = (message) => {
+        // console.log(message);
+
+        if (
+          selectedChatTypeRef.current !== undefined &&
+          selectedChatDataRef.current._id === message.channelID
+        ) {
+          // console.log(message);
+
+          addMessage(message);
+        }
+
+        addChannelInChannelList(message);
       };
 
       newSocket.on("receiveMessage", handleReceiveMessage);
+      newSocket.on("receive-channel-message", handleReceiveChannelMessage);
 
       return () => {
         newSocket.disconnect();

@@ -43,11 +43,11 @@ export default function RootLayout({ children }) {
         >
           <AuthProvider>
             <ChatProvider>
-              <SocketProvider>
-                <LoadingProvider>
-                  <ChannelProvider>{children}</ChannelProvider>
-                </LoadingProvider>
-              </SocketProvider>
+              <LoadingProvider>
+                <ChannelProvider>
+                  <SocketProvider>{children}</SocketProvider>
+                </ChannelProvider>
+              </LoadingProvider>
             </ChatProvider>
           </AuthProvider>
 
