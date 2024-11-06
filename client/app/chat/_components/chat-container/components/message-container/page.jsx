@@ -109,12 +109,15 @@ const MessageContainer = () => {
 
     const urlBlob = window.URL.createObjectURL(new Blob([res.data]));
     const link = document.createElement("a");
-    link.href = urlBlob;
-    link.setAttribute("download", url.split("/").pop());
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(urlBlob);
+
+    if (typeof document !== "undefined") {
+      link.href = urlBlob;
+      link.setAttribute("download", url.split("/").pop());
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(urlBlob);
+    }
 
     setIsDownloading(false);
     setFileDownloadProgress(0);
