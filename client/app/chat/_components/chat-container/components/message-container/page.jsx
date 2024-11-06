@@ -107,10 +107,9 @@ const MessageContainer = () => {
       },
     });
 
-    const urlBlob = window.URL.createObjectURL(new Blob([res.data]));
-    const link = document.createElement("a");
-
     if (typeof document !== "undefined") {
+      const urlBlob = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
       link.href = urlBlob;
       link.setAttribute("download", url.split("/").pop());
       document.body.appendChild(link);
